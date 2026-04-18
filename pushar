@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# 1. Fråga vad som ska göras
+echo -n "Vad ska Jules fixa? "
+read prompt
+
+# 2. Starta uppdraget och fånga ID:t direkt från utskriften
+# Vi använder 'tee' för att du ska se texten, men sparar ID:t i en variabel
+OUTPUT=$(jules new "$prompt")
+echo "$OUTPUT"
+ID=$(echo "$OUTPUT" | grep -oE '[0-9]{15,}')
+
+if [ -z "$ID" ]; then
+    echo "❌ Kunde inte hitta något ID. Kontrollera att jules fungerar."
+    exit 1
+fi
+
+# 3. Skicka ID:t direkt till ditt andra script
+echo "✅ Hittade ID: $ID. Automatiseringen startar..."
+./finish_task.sh "$ID"
