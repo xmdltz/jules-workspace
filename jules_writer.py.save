@@ -1,0 +1,41 @@
+import os
+import requests
+import sys
+
+# Konfiguration
+API_KEY = os.getenv("JULES_API_KEY") # Se till att du har export JULES_API_KEY='din_nyckel'
+API_URL = "https://api.jules.google/v1/generate"
+
+def ask_jules_to_code(task_description, target_file):
+    print(f"🤖 Jules funderar på: {task_description}...")
+    
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    # Här definierar vi Jules personlighet och uppdrag
+    payload = {
+        "instruction": f"Du är en expertutvecklare. Skriv koden för {target_file}. {task_description}",
+        "format": "raw_code_only" # Vi vill bara ha kod, inget snack runt omkring
+    }
+
+    try:
+        response = requests.post(API_URL, headers=headers, json=payload)
+        response.raise_for_status()
+        
+        code = response.json().get("generated_code")
+        
+        with open(target_file, "w") as f:
+            f.write(code)
+        
+        print(f"✅ Klart! Jules har skrivit till {target_file}")
+    except Exception as e:
+        print(f"❌ Något gick fel: {e}")
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Användning: python jules_writer.py 'instruktion' 'filnamn.py'")
+    else:
+        ask_jules_to_code(sys.argv[1], sys.argv[2])
+c
