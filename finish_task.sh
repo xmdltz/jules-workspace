@@ -1,27 +1,17 @@
 #!/bin/bash
 
-# Check if Session ID is provided
-if [ -z "$1" ]; then
-  echo "Usage: $0 <Session ID>"
-  exit 1
-fi
+# 1. En loop som kör 'jules remote list --session' och väntar tills status är 'Co'
+echo "Waiting for session status 'Co'..."
+while ! jules remote list --session | grep -q "Co"; do
+  sleep 5
+done
 
-SESSION_ID=$1
+# 2. Sen kör den 'jules remote pull --apply'
+echo "Pulling changes..."
+jules remote pull --apply
 
-# Run jules remote pull --apply
-echo "Running jules remote pull --apply $SESSION_ID..."
-jules remote pull --apply "$SESSION_ID"
-
-# Check if the previous command succeeded
-if [ $? -ne 0 ]; then
-  echo "Error: jules remote pull failed."
-  exit 1
-fi
-
-# Git operations
-echo "Performing git add, commit, and push..."
+# 3. Sen kör den git add, commit och 'git push origin HEAD'
+echo "Staging, committing and pushing..."
 git add .
-git commit -m "Finish task $SESSION_ID"
-git push
-
-echo "Task $SESSION_ID finished and pushed successfully."
+git commit -m "Finish task"
+git push origin HEAD
