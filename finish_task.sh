@@ -1,17 +1,26 @@
 #!/bin/bash
+SESSION_ID=$1
 
-# 1. En loop som kör 'jules remote list --session' och väntar tills status är 'Co'
-echo "Waiting for session status 'Co'..."
-while ! jules remote list --session | grep -q "Co"; do
+if [ -z "$SESSION_ID" ]; then
+  echo "Usage: ./finish_task.sh <SESSION_ID>"
+  exit 1
+fi
+
+echo "Waiting for Jules to complete session $SESSION_ID..."
+
+while true; do
+  # Vi kollar om raden för ID:t innehåller "Co" någonstans överhuvudtaget
+  if jules remote list --session | grep "$SESSION_ID" | grep -q "Co"; then
+    echo -e "\nTask completed! Fetching changes..."
+    break
+  fi
+  
+  echo -n "."
   sleep 5
 done
 
-# 2. Sen kör den 'jules remote pull --apply'
-echo "Pulling changes..."
-jules remote pull --apply
-
-# 3. Sen kör den git add, commit och 'git push origin HEAD'
-echo "Staging, committing and pushing..."
+jules remote pull --session "$SESSION_ID" --apply
 git add .
-git commit -m "Finish task"
+git commit -m "Jules session $SESSION_ID completed"
 git push origin HEAD
+echo "Success! Everything is synced."
