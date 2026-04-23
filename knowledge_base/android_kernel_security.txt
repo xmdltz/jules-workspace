@@ -1,0 +1,15 @@
+Android Kernel-säkerhet och Attackvektorer
+==========================================
+
+Linux-kärnan utgör fundamentet för Androids säkerhetsmodell. Den tillhandahåller processisolering, en användarbaserad behörighetsmodell och säkra mekanismer för interprocesskommunikation (IPC).
+
+Kritiska tekniska aspekter:
+1. Användarbaserad behörighetsmodell: Varje app körs som en unik Linux-användare (UID), vilket förhindrar appar från att läsa varandras filer eller uttömma systemresurser.
+2. Binder IPC: Det primära systemet för kommunikation mellan processer. Binder är en av de mest kritiska attackytorna i kärnan. Sårbarheter här (t.ex. CVE-2024-26926) kan leda till lokal eskalering av privilegier (EoP).
+3. Minnessäkerhet: De flesta kernel-sårbarheter beror på brister i minneshanteringen, såsom Use-After-Free (UAF) eller Buffer Overflow i drivrutiner (t.ex. GPU-drivrutiner från Arm Mali eller Qualcomm).
+4. Eskalering av privilegier: Om en angripare lyckas utnyttja en bugg i kärnan kan de få root-behörighet, vilket gör det möjligt att kringgå högre säkerhetslager, även om SELinux fortfarande kan begränsa vad en root-process får göra.
+
+Attackvektorer:
+- Systemanrop (Syscalls): Angrepp via kernel-API:er som nås från användarrymden.
+- Drivrutiner: Ofta mindre granskad kod som körs med höga privilegier i kärnan.
+- Binder-transaktioner: Manipulering av objekt som skickas mellan processer för att lura kärnan att utföra otillåtna operationer.

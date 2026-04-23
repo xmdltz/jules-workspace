@@ -1,0 +1,15 @@
+Zero-Day Exploits i Android: Analys och Trender
+==============================================
+
+En Zero-Day sårbarhet är en brist som är okänd för tillverkaren. I Android-ekosystemet är dessa extremt värdefulla och används ofta i riktade attacker (t.ex. av NSO Group eller liknande aktörer).
+
+Tekniska mönster:
+1. Kedjekoppling av sårbarheter: En modern exploit kräver sällan bara en bugg. Ofta används en kedja:
+   - Initial entry: Webview (Chrome) eller Media-processer.
+   - Sandbox Escape: Utnyttjande av Binder eller systemtjänster.
+   - Kernel Elevation of Privilege: Slutmålet för att få full kontroll.
+2. Minneskorruption: De flesta Zero-Days utnyttjar minnesfel i C/C++ kod. Logikfel blir dock vanligare i takt med att minnesskydd (som MTE) införs.
+3. GPU-drivrutiner: En växande attackyta. Drivrutiner från tredjepart (Mali, Adreno) körs ofta i kernel-kontext och är svårare att säkra än kärnkoden i AOSP.
+
+Exempel på mål:
+- n-day vs 0-day: Många attacker utnyttjar kända sårbarheter som ännu inte patchats på specifika enheter (pga fragmentering), snarare än äkta 0-days.
