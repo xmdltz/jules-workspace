@@ -17,3 +17,13 @@ Jag har nu genomfört "Deep Research Mode" och täckt de mest avancerade attacky
 - **security_advisor.py**: Ett Python-verktyg som nu innehåller `check_memory_protections()` för att verifiera hårdvarusäkerhet.
 
 Forskningen är nu komplett och täcker allt från hårdvarunivå (Baseband/TrustZone) till applikationsnivå och leveranskedjor.
+
+## Modul-specifika detaljer för Master-advisor (Uppdatering):
+1. **CVE_DETAILS.md**: Innehåller analys av CVE-2024-36971, CVE-2024-26926 och CVE-2024-33044.
+2. **EXPLOIT_SAMPLES.txt**: Innehåller C++ exempel på Heap Overflow för att träna advisor-modellen på att känna igen sårbar kod.
+3. **LOG_RED_FLAGS.md**: Innehåller indikatorer för baseband-attacker som advisor-modulen kan skanna efter i realtidsloggar.
+
+Gemini kan nu använda dessa specifika hot och kodmönster för att bygga logiken för detektering och prevention.
+
+## Modul: AI-driven Malware (Nyhet)
+1. **AI_MALWARE_THREATS.md**: Teknisk analys av hur AI används för evasion, kodgenerering och automatiserad sårbarhetsanalys. Detta är kritiskt för att advisor-modulen ska kunna förutse nästa generations hot.
