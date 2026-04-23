@@ -1,0 +1,20 @@
+Moderna Motåtgärder mot Android-sårbarheter
+===========================================
+
+Google och chiptillverkare har implementerat flera avancerade tekniker för att göra det svårare att exploatera sårbarheter i Android.
+
+1. Arm Memory Tagging Extension (MTE):
+   - Introducerat med Arm v9.
+   - En hårdvarubaserad implementation av "tagged memory" som detekterar minnesfel i realtid.
+   - Varje minnesallokering tilldelas en 4-bitars tagg. Vid varje åtkomst kontrollerar CPU:n att pekarens tagg matchar minnets tagg.
+   - Detekterar effektivt Use-after-free och Buffer-overflow, vilket är de vanligaste orsakerna till kernel-attacker.
+
+2. Verified Boot (AVB):
+   - Garanterar integriteten hos enhetens programvara från en hårdvarubaserad "root of trust".
+   - Varje steg i uppstartsprocessen verifierar kryptografiskt nästa steg. Om systempartitionen manipuleras vägrar enheten att starta.
+
+3. Scudo-allokatorn:
+   - En användarrymds-allokator designad för att vara resistent mot heap-baserade sårbarheter. Den används nu som standard i Android för att göra det svårare att förutsäga minneslayouter.
+
+4. Kontrollflödesintegritet (CFI):
+   - Förhindrar angripare från att omdirigera exekveringsflödet till godtycklig kod (t.ex. via ROP-kedjor) genom att verifiera att hopp i koden går till legitima adresser.

@@ -1,0 +1,14 @@
+Android Sandbox Escape: Tekniker och Mekanismer
+==============================================
+
+Androids Application Sandbox är designad för att isolera appar från varandra och från systemet. För att bryta sig ut (Sandbox Escape) krävs vanligtvis att man komprometterar kärnan eller utnyttjar brister i de skyddsmekanismer som upprätthåller sandboxen.
+
+Centrala mekanismer:
+1. UID-isolering: Den grundläggande sandboxen baseras på traditionell UNIX-separation.
+2. SELinux (Mandatory Access Control): Android använder SELinux för att definiera strikta policyer för vad varje process får göra. Även om en app lyckas eskalera till root, begränsar SELinux-policyer åtkomsten till kritiska systemfiler och enheter.
+3. seccomp-bpf: Ett filter som begränsar vilka systemanrop en app får göra till kärnan. Detta minskar attackytan dramatiskt genom att blockera farliga eller onödiga syscalls.
+
+Tekniker för Sandbox Escape:
+- Kernel Exploitation: Den vanligaste vägen ut ur sandboxen. Genom att utnyttja en bugg i kärnan (se android_kernel_security.txt) kan en process få befogenheter som ligger utanför sandboxens begränsningar.
+- Confused Deputy-attacker: Att lura en mer privilegierad process (t.ex. en systemsystem-tjänst) att utföra en åtgärd för angriparens räkning via IPC (Binder).
+- Sårbarheter i Systemtjänster: Appar pratar med systemtjänster via Binder. Om en systemtjänst har en sårbarhet kan en o特權 app utnyttja denna för att exekvera kod med tjänstens privilegier.
