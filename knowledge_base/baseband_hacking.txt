@@ -1,0 +1,14 @@
+Baseband Hacking: Attacker mot Radioprocessorn
+==============================================
+
+Radioprocessorn (Baseband/Modem) är en separat processor med eget operativsystem (RTOS) som hanterar all trådlös kommunikation (LTE, 5G, etc.).
+
+Tekniska utmaningar och sårbarheter:
+1. Sluten källkod: Baseband-firmware är proprietär (Qualcomm, Samsung, MediaTek), vilket gör oberoende granskning svår.
+2. Brist på moderna skydd: Många baseband-OS saknar avancerade skydd som ASLR eller Stack Canaries, vilket gör dem lättare att exploatera när en bugg väl hittas.
+3. Attackvektorer:
+   - Falska basstationer (Stingrays): Genom att simulera en celltorn kan en angripare skicka malformade paket direkt till telefonens modem.
+   - Över-luften (OTA) exploits: Sårbarheter i hanteringen av protokollstacken (t.ex. RRC eller NAS-meddelanden).
+
+Konsekvenser:
+Ett knäckt baseband ger angriparen möjlighet att avlyssna samtal, läsa SMS och ofta eskalera attacken till huvudprocessorn (AP) via DMA-åtkomst eller delat minne.

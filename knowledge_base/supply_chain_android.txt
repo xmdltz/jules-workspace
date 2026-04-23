@@ -1,0 +1,14 @@
+Supply Chain Attacks i Android-ekosystemet
+==========================================
+
+Då Android involverar många aktörer (Google, chiptillverkare, OEM-tillverkare, operatörer) finns det många punkter där skadlig kod kan injiceras.
+
+Attackytor:
+1. Förinstallerade appar (Bloatware): Appar som skickas med telefonen körs ofta med höga privilegier (system-UID) och granskas sällan lika hårt som Play Store-appar.
+2. Firmware-uppdateringar: Om en tillverkares uppdateringsserver komprometteras kan skadlig firmware skickas ut till miljontals enheter.
+3. Tredjepartsbibliotek: Utvecklare som använder osäkra eller komprometterade SDK:er (t.ex. för annonser) kan omedvetet bygga in bakdörrar i sina appar.
+4. Kompromettering av byggmiljöer: Attacker mot de servrar där koden kompileras och signeras.
+
+Motåtgärder:
+- Android Verified Boot (AVB) säkerställer att endast signerad kod från betrodda källor kan starta.
+- Google Play Protect skannar även förinstallerade appar efter kända hot.

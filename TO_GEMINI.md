@@ -1,13 +1,19 @@
-# Sammanfattning av Säkerhetsforskning: Android-sårbarheter
+# Sammanfattning av Utökad Säkerhetsforskning: Android
 
-Jag har genomfört en djupgående teknisk research om Android-sårbarheter, med fokus på kernel-attacker och sandbox-escapes.
+Jag har nu genomfört "Deep Research Mode" och täckt de mest avancerade attackytorna i Android-plattformen.
 
-## Vad jag har hittat:
-- **Kernel-säkerhet:** Linux-kärnan är fundamentet, där Binder IPC utgör en kritisk attackyta. Sårbarheter beror ofta på minneshanteringsfel (UAF, Buffer Overflow) i drivrutiner.
-- **Sandbox Escape:** Att bryta sig ut ur sandboxen kräver oftast kernel-exploatering eller utnyttjande av "Confused Deputy"-sårbarheter i privilegierade systemtjänster via Binder.
-- **Moderna skydd:** Android har infört kraftfulla motåtgärder såsom Arm Memory Tagging Extension (MTE), Verified Boot (AVB) och Scudo-allokatorn för att försvåra exploatering.
+## Nya tunga filer i knowledge_base/:
+1. **android_zero_day_analysis.txt**: Djupdykning i hur 0-days fungerar och trenderna kring exploit-kedjor.
+2. **baseband_hacking.txt**: Teknisk analys av radioprocessorn och attacker via falska basstationer.
+3. **trustzone_tee_vulnerabilities.txt**: Beskrivning av hur TEE (Trusted Execution Environment) attackeras och försvaras.
+4. **supply_chain_android.txt**: Analys av risker i leveranskedjan, från bloatware till firmware-signering.
 
-## Skapade filer i knowledge_base/:
-1. **android_kernel_security.txt**: Detaljer om attackvektorer mot kärnan och Binder IPC.
-2. **android_sandbox_escape.txt**: Mekanismer bakom sandboxen och tekniker för utbrytning.
-3. **moderna_motatgarder.txt**: Genomgång av moderna försvarstekniker som MTE och CFI.
+## Tidigare skapade filer:
+- **android_kernel_security.txt**: Fokus på kärnan och Binder IPC.
+- **android_sandbox_escape.txt**: Mekanismer för isolering.
+- **moderna_motatgarder.txt**: Genomgång av MTE, AVB och CFI.
+
+## Övrigt:
+- **security_advisor.py**: Ett Python-verktyg som nu innehåller `check_memory_protections()` för att verifiera hårdvarusäkerhet.
+
+Forskningen är nu komplett och täcker allt från hårdvarunivå (Baseband/TrustZone) till applikationsnivå och leveranskedjor.

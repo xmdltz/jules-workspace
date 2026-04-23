@@ -1,0 +1,12 @@
+TrustZone och TEE: Angrepp mot Säkerhetsvalvet
+==============================================
+
+ARM TrustZone skapar en Trusted Execution Environment (TEE), ett "säkerhetsvalv" som är isolerat från det vanliga operativsystemet (Android). Här körs kritiska uppgifter som biometrisk verifiering, DRM och kryptonycklar.
+
+Sårbarhetsmekanismer:
+1. Trusted Applications (TAs): Android-appar kan prata med "betrodda appar" i TEE via en drivrutin. Om en TA har en sårbarhet (t.ex. buffer overflow) kan en angripare exekvera kod inuti TEE.
+2. Secure Monitor-anrop (SMC): Gränssnittet mellan "Normal World" och "Secure World". Felaktig validering av parametrar i SMC-hanteraren kan leda till att hela TEE komprometteras.
+3. Cache-attacker: Sidokanalsattacker där man analyserar cache-användning för att extrahera kryptonycklar från den säkra sidan.
+
+Viktiga försvar:
+- Trusty TEE (Googles open-source implementation) syftar till att öka transparensen och säkerheten jämfört med proprietära lösningar.
